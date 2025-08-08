@@ -12,5 +12,3 @@ This project is part of the NullClass Data Science Internship. It focuses on rec
 ## Dataset
 
 The dataset used is ASL Alphabet (A–Z) images. Due to size limitations, the dataset is not included here.  
-
-   pip install -r requirements.txt
