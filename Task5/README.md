@@ -24,4 +24,5 @@ This project is a Car Colour Detection Model built using machine learning and co
 ✅ Lightweight and fast prediction
 
 👩‍💻 Author
+
 Manvitha Poka
