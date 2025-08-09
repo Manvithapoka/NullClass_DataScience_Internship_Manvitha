@@ -14,9 +14,13 @@ This project is a Car Colour Detection Model built using machine learning and co
 
   
 📌 Features 
+
 ✅ Detects dominant car color from an image
+
 ✅ Works with multiple image formats (.jpg, .png, .jpeg)
+
 ✅ Optional GUI for easy user interaction
+
 ✅ Lightweight and fast prediction
 
 👩‍💻 Author
