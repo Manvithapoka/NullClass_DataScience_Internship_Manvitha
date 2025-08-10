@@ -1,69 +1,60 @@
-import tkinter as tk
-from tkinter import filedialog, messagebox
-from PIL import Image, ImageTk
-import numpy as np
-import tensorflow as tf
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+import gradio as gr
 
-class LongHairApp:
-    def __init__(self, root):
-        self.root = root
-        self.root.title("Long Hair Identification")
-        self.root.geometry("500x550")
+# ===============================
+# Load and preprocess dataset
+# ===============================
+df = pd.read_csv("labels.csv")
 
-        try:
-            self.model = tf.keras.models.load_model("longhair_cnn_model.h5")
-        except Exception as e:
-            messagebox.showerror("Error", f"Failed to load model:\n{e}")
-            self.model = None
+# Map categorical values
+df['hair_length'] = df['hair_length'].map({'Short': 0, 'Long': 1})
+df['gender_label'] = df['gender'].map({'Male': 0, 'Female': 1})
 
-        self.image_label = tk.Label(root)
-        self.image_label.pack(pady=10)
+# Apply custom rule-based label
+def apply_task_logic(row):
+    if 20 <= row['age'] <= 30:
+        return 1 if row['hair_length'] == 1 else 0  # Female if long hair
+    else:
+        return row['gender_label']
 
-        self.btn_load = tk.Button(root, text="Load Image", command=self.load_image)
-        self.btn_load.pack(pady=5)
+df['target'] = df.apply(apply_task_logic, axis=1)
 
-        self.btn_predict = tk.Button(root, text="Predict Long Hair", command=self.predict_long_hair)
-        self.btn_predict.pack(pady=5)
+# Features and target
+X = df[['age', 'hair_length']]
+y = df['target']
 
-        self.result_label = tk.Label(root, text="", font=("Arial", 16))
-        self.result_label.pack(pady=20)
+# Train the model
+model = RandomForestClassifier()
+model.fit(X, y)
 
-        self.img_path = None
-        self.loaded_image = None
+# ===============================
+# Prediction function for GUI
+# ===============================
+def predict_gender_gui(age, hair_length):
+    if 20 <= age <= 30:
+        # Rule-based prediction
+        return "Female" if hair_length == "Long" else "Male"
+    else:
+        # Model prediction
+        hair = 1 if hair_length == "Long" else 0
+        input_data = [[age, hair]]
+        prediction = model.predict(input_data)[0]
+        return "Female" if prediction == 1 else "Male"
 
-    def load_image(self):
-        filetypes = [("Image Files", "*.jpg *.jpeg *.png")]
-        self.img_path = filedialog.askopenfilename(title="Select an image", filetypes=filetypes)
-        if self.img_path:
-            img = Image.open(self.img_path)
-            img = img.resize((400, 300))
-            self.loaded_image = ImageTk.PhotoImage(img)
-            self.image_label.config(image=self.loaded_image)
-            self.result_label.config(text="")
-
-    def predict_long_hair(self):
-        if not self.img_path:
-            messagebox.showwarning("No Image", "Please load an image first.")
-            return
-
-        if self.model is None:
-            messagebox.showerror("No Model", "Model not loaded properly.")
-            return
-
-        try:
-            img = Image.open(self.img_path).resize((64,64))
-            img_array = np.array(img)/255.0
-            img_array = np.expand_dims(img_array, axis=0)  # Add batch dimension
-
-            prediction = self.model.predict(img_array)[0][0]
-            result_text = "Long Hair" if prediction > 0.5 else "No Long Hair"
-
-            self.result_label.config(text=f"Prediction: {result_text}")
-
-        except Exception as e:
-            messagebox.showerror("Prediction Error", f"Error during prediction:\n{e}")
+# ===============================
+# Gradio Interface
+# ===============================
+iface = gr.Interface(
+    fn=predict_gender_gui,
+    inputs=[
+        gr.Slider(0, 100, step=1, label="Age"),
+        gr.Radio(["Short", "Long"], label="Hair Length")
+    ],
+    outputs="text",
+    title="Long Hair Identification",
+    description="Predict gender based on age and hair length using custom rules."
+)
 
 if __name__ == "__main__":
-    root = tk.Tk()
-    app = LongHairApp(root)
-    root.mainloop()
+    iface.launch()
