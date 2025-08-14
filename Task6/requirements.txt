@@ -1,0 +1,6 @@
+deepface
+tensorflow
+joblib
+pillow
+numpy
+opencv-python
