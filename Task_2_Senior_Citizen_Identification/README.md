@@ -39,3 +39,9 @@ This project detects multiple persons from a video or real-time webcam feed, ide
 - The model works on webcam or a video input.
 - GUI is optional; this version focuses on backend functionality.
 
+## Dataset
+
+This task did not use a custom dataset.  
+
+Instead, a pre-trained age and gender detection model was utilized for inference.  
+The model internally uses large-scale datasets (such as UTKFace) for training, but since it was pre-trained, no separate dataset was added here.  
