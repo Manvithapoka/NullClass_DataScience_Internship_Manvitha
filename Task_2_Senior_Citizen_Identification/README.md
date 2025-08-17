@@ -39,7 +39,9 @@ This project detects multiple persons from a video or real-time webcam feed, ide
 - The model works on webcam or a video input.
 - GUI is optional; this version focuses on backend functionality.
 
-## Dataset
+---
+
+## 📂 Dataset
 
 This task did not use a custom dataset.  
 
