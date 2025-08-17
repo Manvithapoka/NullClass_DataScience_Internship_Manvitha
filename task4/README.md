@@ -11,4 +11,7 @@ This project is part of the NullClass Data Science Internship. It focuses on rec
 
 ## Dataset
 
-The dataset used is ASL Alphabet (A–Z) images. Due to size limitations, the dataset is not included here.  
+The dataset used for training this model is too large to be uploaded here.  
+
+You can download it from Google Drive: 
+https://drive.google.com/file/d/1sM7t8hGtewXD9Y7ZBJjJC75l76R6Gc2V/view?usp=sharing
