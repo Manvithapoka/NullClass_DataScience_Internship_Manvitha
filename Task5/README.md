@@ -23,6 +23,13 @@ This project is a Car Colour Detection Model built using machine learning and co
 
 ✅ Lightweight and fast prediction
 
+## Dataset
+
+This task did not use a separate dataset.  
+
+The car colour detection was implemented using computer vision techniques (image processing and color space transformations).  
+A few sample car images were used only for testing purposes.
+
 👩‍💻 Author
 
 Manvitha Poka
