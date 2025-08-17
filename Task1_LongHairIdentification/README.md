@@ -32,6 +32,12 @@ This task predicts a person's gender based on their **age** and **hair length** 
 2. Install packages:  
 3. Run the notebook or GUI file
 
+## Dataset
+The dataset used for training this model is too large to be uploaded here.  
+You can download it from Google Drive:
+https://drive.google.com/drive/folders/1ywfXJMW0Wb132kHF9hTXSrb3Oqdo-GI-?usp=sharing
+
+
 ## 👩‍💻 Developed By
 Manvitha  
 Data Science Intern at NullClass
