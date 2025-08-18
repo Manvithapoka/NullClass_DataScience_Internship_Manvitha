@@ -38,3 +38,10 @@ GUI included.
 ## Task 6 – Nationality Detection
 
 Detects nationality from facial features.
+
+## 📄 Internship Report  
+
+The internship report is available here:  
+
+👉 [View Internship Report (PDF)](NullClass_Internship_Report_Manvitha.pdf)  
+
